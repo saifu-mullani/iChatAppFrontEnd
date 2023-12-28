@@ -1,0 +1,55 @@
+.chat-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 50%;
+    margin:20px auto;
+    overflow: auto;
+    height: 500px;
+  }
+
+.message-box {
+    border-radius: 5px;
+    width: 50%;
+    margin:20px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .message-container {
+    width: 94%;
+  }
+
+  .from {
+    font-size: 10px;
+  }
+  
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message {
+    margin: 5px;
+    padding: 8px;
+    border-radius: 8px;
+  }
+  
+  .Myself {
+    background-color: #3498db;
+    color: #fff;
+    align-self: flex-end;
+  }
+  
+  .Other {
+    background-color: #e0e0e0;
+    color: #333;
+    align-self: flex-start;
+  }
+  .system {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin: 10px;
+  }
+  

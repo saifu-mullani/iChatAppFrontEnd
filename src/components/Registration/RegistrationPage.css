@@ -1,0 +1,64 @@
+.registration-container {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top : 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #217dbb;
+  }
+
+  .error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .registration-status {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 3px;
+  }
+
+  .button {
+    margin-left: 5px;
+  }
+  
+  .success {
+    background-color: #2ecc71;
+    color: #fff;
+  }
+  
+  .error {
+    background-color: #e74c3c;
+    color: #fff;
+  }

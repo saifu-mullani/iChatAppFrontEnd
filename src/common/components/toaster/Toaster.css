@@ -1,0 +1,18 @@
+.toaster-container {
+    position: fixed;
+    z-index: 999;
+  }
+  
+  .bottom-right {
+    bottom: 16px;
+    right: 16px;
+  }
+  
+  .toast {
+    background-color: #333;
+    color: #fff;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+  }
+  
