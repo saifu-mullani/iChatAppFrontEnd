@@ -27,23 +27,39 @@ const ForgotPassword = () => {
             setShowResetPassword(true)
             return alert("OTP Sent on Email")
         }
-        return alert("Failed to send OTP ")
+        return alert(forgotPasswordResp.error)
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
+  const validatePassword = (e)=> {
+    e.preventDefault();
+    if(formData.password){
+      console.log("Yes")
+      var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      if (!passwordPattern.test(formData.password)) {
+        console.log("Failed Valid")
+        setPasswordError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit.');
+    }else{
+      console.log("DOne")
+      handleResetPassword(e)
+    }
+    } 
+    
+  }
+
   const handleResetPassword = async () => {
-    try {
-        console.log("formaData",formData,username)
+    try { 
+      if(!(Object.values(formData).find((curr)=> curr === "") === "")){
         let forgotPasswordResp = await UserService.resetPassword(formData)
-        console.log("forgotPasswordResp",forgotPasswordResp)
         if(forgotPasswordResp.status === "success"){
-            alert(forgotPasswordResp.result)
-            navigate('/login');
-            return true
+          alert(forgotPasswordResp.result)
+          navigate('/login');
+          return true
         }
         return alert(forgotPasswordResp.error)
+      }
     } catch (error) {
       console.error('Error:', error);
     }
@@ -109,7 +125,7 @@ const ForgotPassword = () => {
                 />
                 </label>
                 {passwordError && <p className="error-message">{passwordError}</p>}
-                <button onClick={handleResetPassword}>Reset Password</button>
+                <button onClick={validatePassword}>Reset Password</button>
                 </>
             ) : 
             (

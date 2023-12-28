@@ -63,6 +63,21 @@ const RegistrationPage = () => {
       }, 5000);
   };
 
+  const validatePassword = (e)=> {
+    e.preventDefault();
+    if(formData.password){
+      console.log("Yes")
+      var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      if (!passwordPattern.test(formData.password)) {
+        console.log("Failed Valid")
+        setPasswordError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit.');
+    }else{
+      console.log("DOne")
+      handleSubmit(e)
+    }
+    } 
+    
+  }
   const redirectToLogin = ()=>{
     setTimeout(() => {
       navigate('/login');
@@ -76,7 +91,7 @@ const RegistrationPage = () => {
 
       {registrationStatus && <p className={`registration-status ${registrationStatus === 'Registration successful!' ? 'success' : 'error'}`}>{registrationStatus}</p>}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={validatePassword}>
         <div className="form-group">
           <label>
             First Name:
@@ -129,7 +144,7 @@ const RegistrationPage = () => {
           <label>
             Age:
             <input
-              type="text"
+              type="number"
               name="age"
               value={formData.age}
               onChange={handleChange}
@@ -165,7 +180,7 @@ const RegistrationPage = () => {
        
         <div className="form-group">
           <button className="button" type="submit">Register</button>
-          <button className="button" type="submit" onClick={redirectToLogin}>Log In</button>
+          <button className="button" type="button" onClick={redirectToLogin}>Log In</button>
         </div>
       </form>
       
