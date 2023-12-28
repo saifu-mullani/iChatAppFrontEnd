@@ -11,6 +11,7 @@ import NotificationSound from '../../common/components/toaster/NotificationSound
 import StickerPicker from '../Stickers';
 import PopupDialog from "../../common/popup/PopupDialog"
 import EmojiPicker from '../EmojiPicker/index';
+import domain_name from "../../common/utility"
 const moment = require("moment")
 
 
@@ -59,7 +60,7 @@ export default function ChatPage() {
     }
 
     useEffect(()=>{
-      socket = io('http://localhost:8001');
+      socket = io(domain_name);
       let a = receiverId
       let b =  senderId  
       // setReceiver(a)

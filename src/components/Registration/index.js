@@ -99,6 +99,7 @@ const RegistrationPage = () => {
               type="text"
               name="first_name"
               value={formData.first_name}
+              placeholder="Enter your first name"
               onChange={handleChange}
               required
             />
@@ -111,6 +112,7 @@ const RegistrationPage = () => {
               type="text"
               name="last_name"
               value={formData.last_name}
+              placeholder="Enter your last name"
               onChange={handleChange}
               required
             />
@@ -122,8 +124,10 @@ const RegistrationPage = () => {
             <input
               type="text"
               name="mobile"
+              maxlength="10"
               value={formData.mobile}
               onChange={handleChange}
+              placeholder="Enter your mobile number"
               required
             />
           </label>
@@ -135,6 +139,7 @@ const RegistrationPage = () => {
               type="email"
               name="email"
               value={formData.email}
+              placeholder="Enter your email id"
               onChange={handleChange}
               required
             />
@@ -147,6 +152,7 @@ const RegistrationPage = () => {
               type="number"
               name="age"
               value={formData.age}
+              placeholder="Enter your age"
               onChange={handleChange}
               required
             />
@@ -159,6 +165,7 @@ const RegistrationPage = () => {
               type="password"
               name="password"
               value={formData.password}
+              placeholder="Enter your password"
               onChange={handleChange}
               required
             />
@@ -170,6 +177,7 @@ const RegistrationPage = () => {
             <input
               type="password"
               name="confirm_password"
+              placeholder="Enter confirm password"
               value={formData.confirm_password}
               onChange={handleChange}
               required
