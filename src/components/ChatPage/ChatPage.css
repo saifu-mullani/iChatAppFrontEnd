@@ -13,6 +13,7 @@
     border-right: 1px solid #ccc;
     overflow-y: auto;
     background: #b65f5f;
+    width: 25%;
 
   }
   
@@ -51,6 +52,7 @@
     flex: 3;
     display: flex;
     flex-direction: column;
+    width: 75%;
   }
   
   .chat-header {
@@ -89,7 +91,7 @@
     color: #1cce34; /* Use any color you prefer */
   }
   .inactive{
-    color: #ce341c; /* Use any color you prefer */
+    color: #ff2200; /* Use any color you prefer */
   }
 
   .chat-middle {
@@ -151,12 +153,16 @@
     background-color: #3498db;
     color: #fff;
     align-self: flex-end;
+    max-width: 70%;
+    word-wrap: break-word;
   }
   
   .Other {
     background-color: #e0e0e0;
     color: #333;
     align-self: flex-start;
+    max-width: 70%;
+    word-wrap: break-word;
   }
   .system {
     text-align: center;
