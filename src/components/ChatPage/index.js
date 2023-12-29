@@ -100,7 +100,7 @@ export default function ChatPage() {
   },[messages])
 
     const fetchUsers = async()=>{
-        let fetchUserResp = await UserService.fetchUsers()
+        // let fetchUserResp = await UserService.fetchUsers()
         let fetchUserResp2 = await MessageService.fetchOldChatUser({user_id:senderId})
         console.log("fetchUserResp2",fetchUserResp2)
         // if(fetchUserResp.status === "success"){
