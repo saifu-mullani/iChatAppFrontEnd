@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { IdProvider} from './other/IdContext';
+import config from "./common/utility";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,6 +14,11 @@ root.render(
     </IdProvider>
   // </React.StrictMode>
 );
+
+console.log("env",config.env)
+if(config.env !== "local"){
+  console.log = function() {};
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -12,7 +12,7 @@ import StickerPicker from '../Stickers';
 import PopupDialog from "../../common/popup/PopupDialog"
 import PopupDialog2 from "../../common/popup2/PopupDialog2"
 import EmojiPicker from '../EmojiPicker/index';
-import domain_name from "../../common/utility"
+import config from "../../common/utility"
 const moment = require("moment")
 
 
@@ -61,7 +61,7 @@ export default function ChatPage() {
     }
 
     useEffect(()=>{
-      socket = io(domain_name);
+      socket = io(config.domain_name);
       let a = receiverId
       let b =  senderId  
       // setReceiver(a)
@@ -126,6 +126,10 @@ export default function ChatPage() {
         setChatMembers([...chatMembers,...newMembers])
       }
 
+      const callMe = (messageId)=>{
+        console.log("MessageId",messageId)
+      }
+
       const handleUserSelect = async(user_id) => {
         console.log("handleUserSelect")
         let user = {}  ; 
@@ -168,8 +172,9 @@ export default function ChatPage() {
           console.log("message",message)
             if(message.sender === "system"){
                 return (<div
-                    key={"1"}
+                    key={message.messageId}
                     className={`message ${message.sender}`}
+                    onClick={()=>{callMe(message.messageId)}}
                   > 
                     {message.message}
                     <div>{message.timestamp}</div>
@@ -177,8 +182,9 @@ export default function ChatPage() {
             }
             else{
                 return (<div
-                    key={"2"}
+                    key={message.messageId || ""}
                     className={`message ${message.sender === senderId ? 'Myself' : 'Other'}`}
+                    onClick={()=>{message.messageId && callMe(message.messageId)}}
                   > 
                     {message.message}
                     <div  className="italic">{calculateTime(message.timestamp)}</div>
