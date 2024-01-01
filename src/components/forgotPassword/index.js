@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {UserService}  from '../../services/User'
 import {useNavigate} from 'react-router-dom';
-
+import("./forgotPassword.css")
 const ForgotPassword = () => {
 
 
@@ -16,7 +16,11 @@ const ForgotPassword = () => {
     otp:""
   });
   const [showResetPassword,setShowResetPassword] = useState(false)
+  const [disableButton,setDisableButton] = useState(true)
   const [passwordError, setPasswordError] = useState('');
+  const time  = 60*1000;
+  const [count , setCount] = useState(time) 
+  const [isDivHidden, setDivHidden] = useState(false);
 
   const handleSendOtp = async () => {
     try {
@@ -25,6 +29,16 @@ const ForgotPassword = () => {
         console.log("forgotPasswordResp",forgotPasswordResp)
         if(forgotPasswordResp.status === "success"){
             setShowResetPassword(true)
+            setDisableButton(true)
+            setTimeout(()=>{
+              setDisableButton(false)
+              clearInterval(intervalId);
+              setDivHidden(true)
+            },time)
+            const intervalId =  setInterval(()=>{
+              setCount((prevCounter) => prevCounter - 1000)
+              console.log(count)
+            },1000)
             return alert("OTP Sent on Email")
         }
         return alert(forgotPasswordResp.error)
@@ -126,6 +140,8 @@ const ForgotPassword = () => {
                 </label>
                 {passwordError && <p className="error-message">{passwordError}</p>}
                 <button onClick={validatePassword}>Reset Password</button>
+                <button className={`${disableButton ? 'disabled':""}`} onClick={handleSendOtp} disabled={disableButton}>Re-send Otp</button>
+                <div style={{ display: isDivHidden ? 'none' : 'block' }}>Resend OTP after {count/1000} seconds </div> 
                 </>
             ) : 
             (

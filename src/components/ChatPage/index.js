@@ -10,6 +10,7 @@ import Toaster from '../../common/components/toaster';
 import NotificationSound from '../../common/components/toaster/NotificationSound';
 import StickerPicker from '../Stickers';
 import PopupDialog from "../../common/popup/PopupDialog"
+import PopupDialog2 from "../../common/popup2/PopupDialog2"
 import EmojiPicker from '../EmojiPicker/index';
 import domain_name from "../../common/utility"
 const moment = require("moment")
@@ -194,12 +195,7 @@ export default function ChatPage() {
             navigate('/login');
           }, 1000);
       }
-     
-      const newChat = async()=>{
-      
-        setTogglePopup(true)
-      }
-
+    
       const renderChatMembers = () => {
         return chatMembers.map((member) => {
                 return (<div
@@ -314,7 +310,8 @@ export default function ChatPage() {
                  <button style={{
                   width: "30px",height:"30px",marginTop : "3px"
                 }} onClick={toggleEmojiBox}>🎉</button>
-                 {openEmojiBox && <EmojiPicker onSelect={handleEmojiSelect} /> } 
+                 {/* {openEmojiBox && <EmojiPicker onSelect={handleEmojiSelect} /> }  */}
+                 {openEmojiBox && <PopupDialog2 dialogTitle={"Select Emoji"} dialogContent ={<EmojiPicker onSelect={handleEmojiSelect} />} /> } 
                 {/* {selectedEmoji && <p>Selected Emoji: {selectedEmoji}</p>} */}
                 
                 
