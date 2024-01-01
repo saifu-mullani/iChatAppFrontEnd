@@ -34,6 +34,9 @@ const PopupDialog = (props) => {
     };
 
   const handleStartChat = async()=>{
+    if(username === ""){
+      return alert("Please Enter User ID")
+    }
     if(props.currentUser === username){
       return alert("Cannot Chat With Self")
     }
