@@ -35,7 +35,8 @@ function App() {
   return (
    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />}/>
+        {/* <Route path="/" element={<Navigate to="/login" />}/> */}
+        <Route path="/" element={<Login></Login>}/>
         <Route path="/login" element={<Login></Login>}/>
         <Route path="/chatApp" element={<ChatApp></ChatApp>}/>
         <Route path="/emoji" element={<MyComponent/>}/>
