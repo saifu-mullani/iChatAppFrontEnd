@@ -56,10 +56,10 @@ const PopupDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Button onClick={handleClose} variant="outlined">
+        
+        {props.dialogActions ?props.dialogActions : <Button onClick={handleClose} variant="outlined">
             Close
-          </Button>
-        {props.dialogActions}
+          </Button>}
         </DialogActions>
       </Dialog>
     </>

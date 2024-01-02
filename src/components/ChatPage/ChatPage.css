@@ -157,6 +157,12 @@
     word-wrap: break-word;
   }
   
+  .italic{
+    font-size: 10px;
+    font-style: italic;
+    
+  }
+
   .Other {
     background-color: #e0e0e0;
     color: #333;
