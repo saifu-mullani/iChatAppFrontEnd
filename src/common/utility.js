@@ -1,4 +1,4 @@
-let domain_name = "https://ichatapp-d54s.onrender.com" ;
+let domain_name = "https://ichatappgroup.onrender.com" ;
 let env = "prod";  
 
 // Comment above and uncomment below while using locally
