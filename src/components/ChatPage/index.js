@@ -83,15 +83,41 @@ export default function ChatPage() {
     },[])
 
     useEffect(()=>{
-        
-     
-
       socket.on("privateMessage",(message)=>{
-        console.log("message",message)
-        setMessages([{id:idCounter ,  ...message},...messages,])  
-        setIdCounter(i => i+1)
-        playNotificationSound()
-        showToast(`${message.sender} : ${message.message.length > 10 ? message.message.substring(0,10)+"..." : message.message}`)
+
+        console.log("message,senderId",message,senderId)
+        console.log("setSelectedUser",selectedUser)
+
+        if( senderId !== message.sender){
+          if(selectedUser.user_id === message.sender){
+            setMessages([{id:idCounter ,  ...message},...messages,])  
+          }
+          
+          setIdCounter(i => i+1)
+          playNotificationSound()
+          showToast(`${message.sender} : ${message.message.length > 10 ? message.message.substring(0,10)+"..." : message.message}`)
+        }
+        
+      })
+
+      socket.on("groupMessage",(message)=>{
+        console.log("groupMessage",message)
+        console.log("setSelectedUser",selectedUser)
+
+        if( senderId !== message.sender){
+
+          if(selectedUser.user_id === message.receiver){
+            setMessages([{id:idCounter ,  ...message},...messages,])  
+          }
+          
+          setIdCounter(i => i+1)
+          playNotificationSound()
+          showToast(`${message.receiver} - ${message.sender} : ${message.message.length > 10 ? message.message.substring(0,10)+"..." : message.message}`)
+        }
+        else{
+          console.log("Self Message")
+        }
+        
       })
 
       socket.on("userLeft",(data)=>{    
@@ -106,20 +132,11 @@ export default function ChatPage() {
       })
       
 
-  },[messages])
+  },[showStickerPicker])
 
     const fetchUsers = async()=>{
-        // let fetchUserResp = await UserService.fetchUsers()
         let fetchUserResp2 = await MessageService.fetchOldChatUser({user_id:senderId})
-        // let fetchGroupsResp = await MessageService.fetchGroups({user_id:senderId})
         console.log("fetchUserResp2",fetchUserResp2)
-        // if(fetchUserResp.status === "success"){
-        
-        //   let usersList = fetchUserResp.result.length && fetchUserResp.result.filter((curr)=>{
-        //     return curr.user_id !== senderId
-        //    }).map((curr)=>{ return {name:curr.user_id,avatar:"avatar"}})
-        //    setChatMembers(usersList)
-        // }
         if(fetchUserResp2.status === "success"){
           let usersList = fetchUserResp2.result.length && fetchUserResp2.result.map((curr)=>{
             return {name:curr.name, type : curr.type, avatar:"avatar"}
@@ -140,6 +157,8 @@ export default function ChatPage() {
       }
 
       const handleUserSelect = async(user_id,type = "Individual") => {
+        console.log("handleUserSelect ",user_id,type)
+        
         if(type === "Individual"){
         
           let user = {}  ; 
@@ -158,16 +177,21 @@ export default function ChatPage() {
           }
         }
         user["type"] = type
-
+        console.log("user 158",user)
         setSelectedUser(user);
-      }
-      else{
-        setSelectedUser({user_id,type:"Group"});
-      }
+        }
+        else{
+          console.log("11")
+         setSelectedUser({user_id,type:"Group"});
+    
+        
+        }
         
       };
     
       const handleFetchMessages = async ()=>{
+        setMessages([])
+        console.log("handleFetchMessages")
         let obj = selectedUser.type === "Individual" ? {sender: senderId,receiver : selectedUser.user_id} : {sender: selectedUser.user_id,receiver : selectedUser.user_id}
         let fetchMessagesResp =await MessageService.fetchMessages(obj)
        
@@ -177,6 +201,7 @@ export default function ChatPage() {
       }
 
     useEffect(()=>{
+      console.log("selectedUser useEffect")
       handleFetchMessages()
     },[selectedUser])
     const renderMessages = () => {
@@ -232,6 +257,9 @@ export default function ChatPage() {
                   </div>)
               }
               else{
+              
+                socket && socket.emit('joinGroup', member.name);
+     
                 return (<div
                   key={"1"}
                     className={`chat-member-box`}
@@ -278,9 +306,16 @@ export default function ChatPage() {
 
       const sendMessage=()=>{
         if(messageInput.trim()){
+
           setMessages([{sender:senderId,message:messageInput,timestamp : new Date()},...messages])
-          socket.emit('privateMessage', {sender : senderId, receiver: selectedUser.user_id , message: messageInput ,timestamp : new Date()})
-          MessageService.sendMessages({type : selectedUser.type || "Individua" , sender : senderId,receiver: selectedUser.user_id, message: messageInput,timestamp : new Date() })
+          console.log("selectedUser",selectedUser)
+          if(selectedUser.type === "Individual"){
+            socket.emit('privateMessage', {sender : senderId, receiver: selectedUser.user_id , message: messageInput ,timestamp : new Date()})
+          }
+          else{
+            socket.emit('groupMessage', {sender : senderId, receiver: selectedUser.user_id , message: messageInput ,timestamp : new Date()})
+          }
+          MessageService.sendMessages({type : selectedUser.type || "Individual" , sender : senderId,receiver: selectedUser.user_id, message: messageInput,timestamp : new Date() })
           setMessageInput("")
         
       }
@@ -388,7 +423,7 @@ export default function ChatPage() {
       }
 
       useEffect(()=>{
-        console.log("useeffect fetcusers")
+        console.log("useeffect fetchusers")
         fetchUsers()
       },[senderId])
 
