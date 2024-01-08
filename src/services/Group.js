@@ -1,10 +1,11 @@
 import axios from "axios"
+import config from "../common/utility"
 
 export const GroupService = {
 
     fetchGroups : async ()=>{
         try {
-            let result = await axios.get("http://localhost:8001/groups")
+            let result = await axios.get(`${config.domain_name}/groups`)
             console.log(result)
             return result.data
             
@@ -15,7 +16,7 @@ export const GroupService = {
     },
     createGroup : async (obj)=>{
         try {
-            let result = await axios.post("http://localhost:8001/groups/createGroup",obj)
+            let result = await axios.post(`${config.domain_name}/groups/createGroup`,obj)
             return result.data
             
         } catch (error) {
@@ -25,7 +26,7 @@ export const GroupService = {
     },
     validateGroupName : async (filter = {})=>{
         try {
-            let result = await axios.post("http://localhost:8001/groups/validateGroupName",filter)
+            let result = await axios.post(`${config.domain_name}/groups/validateGroupName`,filter)
             return result.data
             
         } catch (error) {
